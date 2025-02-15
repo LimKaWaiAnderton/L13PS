@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet, TextInput, Image, Button, ActivityIndicator } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
+import courses from './course.json'; // ✅ Import static course data
 
 const Home = ({ navigation }) => {
     const [records, setRecords] = useState([]);
@@ -33,7 +34,7 @@ const Home = ({ navigation }) => {
             .map(course => course.course_code.match(/\d+/) ? parseInt(course.course_code.match(/\d+/)[0]) : null)
             .filter(code => code !== null);
         const highestCode = Math.max(...courseCodes, 0);
-        return `R${highestCode + 1}`; // Auto-increment course code
+        return `R${highestCode + 1}`; // ✅ Auto-increment course code
     };
 
     const filterRecords = (query, school) => {
@@ -69,7 +70,7 @@ const Home = ({ navigation }) => {
                 value={searchQuery}
                 onChangeText={(text) => {
                     setSearchQuery(text);
-                    filterRecords(text, selectedSchool); // 🔹 Call filter function on change
+                    filterRecords(text, selectedSchool);
                 }}
             />
 
@@ -77,7 +78,7 @@ const Home = ({ navigation }) => {
                 <RNPickerSelect
                     onValueChange={(value) => {
                         setSelectedSchool(value);
-                        filterRecords(searchQuery, value); // 🔹 Filter when school is selected
+                        filterRecords(searchQuery, value);
                     }}
                     items={schools.map(school => ({ label: school, value: school }))}
                     value={selectedSchool}
@@ -92,17 +93,21 @@ const Home = ({ navigation }) => {
                 <FlatList
                     data={filteredRecords}
                     keyExtractor={(item, index) => index.toString()}
-                    renderItem={({ item }) => (
-                        <TouchableOpacity
-                            onPress={() => navigation.navigate('Modify', { record: item })}
-                            style={styles.item}
-                            activeOpacity={0.8}
-                        >
-                            <Text style={styles.name}>{item.course_name}</Text>
-                            <Text style={styles.details}>{item.school}</Text>
-                            <Text style={styles.details}>{item.course_code}</Text>
-                        </TouchableOpacity>
-                    )}
+                    renderItem={({ item }) => {
+                        const staticDetails = courses.find(course => course.course_name === item.course_name) || null;
+
+                        return (
+                            <TouchableOpacity
+                                onPress={() => navigation.navigate('Modify', { record: item, staticDetails })}
+                                style={styles.item}
+                                activeOpacity={0.8}
+                            >
+                                <Text style={styles.name}>{item.course_name}</Text>
+                                <Text style={styles.details}>{item.school}</Text>
+                                <Text style={styles.details}>{item.course_code}</Text>
+                            </TouchableOpacity>
+                        );
+                    }}
                 />
             )}
 
@@ -112,7 +117,7 @@ const Home = ({ navigation }) => {
                     onPress={() =>
                         navigation.navigate('AddCourse', {
                             addCourse,
-                            getNextCourseCode, // ✅ Fix: Now this function exists
+                            getNextCourseCode, // ✅ Now passing the function correctly
                             schools,
                         })
                     }
@@ -134,7 +139,6 @@ const styles = StyleSheet.create({
     buttonContainer: { marginTop: 20, alignItems: 'center' },
 });
 
-// Picker Styles
 const pickerSelectStyles = {
     inputIOS: { fontSize: 16, paddingVertical: 12, paddingHorizontal: 10, borderWidth: 1, borderColor: '#7ac142', borderRadius: 10, color: '#000', backgroundColor: '#f5f5f5', marginBottom: 10 },
     inputAndroid: { fontSize: 16, paddingVertical: 12, paddingHorizontal: 10, borderWidth: 1, borderColor: '#7ac142', borderRadius: 10, color: '#000', backgroundColor: '#f5f5f5', marginBottom: 10 },

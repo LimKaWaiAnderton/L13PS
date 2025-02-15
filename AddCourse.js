@@ -3,7 +3,7 @@ import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import RNPickerSelect from 'react-native-picker-select';
 
 const AddCourse = ({ route, navigation }) => {
-    const { addCourse, getNextCourseCode, schools } = route.params; // Get school list from Home.js
+    const { addCourse, getNextCourseCode, schools } = route.params;
     const [courseName, setCourseName] = useState('');
     const [courseCode, setCourseCode] = useState(getNextCourseCode());
     const [selectedSchool, setSelectedSchool] = useState('');
@@ -33,32 +33,16 @@ const AddCourse = ({ route, navigation }) => {
         <View style={styles.container}>
             <Text style={styles.header}>Add New Course</Text>
 
-            {/* Course Name as Text Input */}
             <Text style={styles.label}>Course Name</Text>
-            <TextInput
-                style={styles.input}
-                value={courseName}
-                onChangeText={setCourseName}
-                placeholder="Enter Course Name"
-                placeholderTextColor="#888"
-            />
+            <TextInput style={styles.input} value={courseName} onChangeText={setCourseName} placeholder="Enter Course Name" />
 
-            {/* Course Code (Auto-Generated) */}
             <Text style={styles.label}>Course Code</Text>
-            <Text style={[styles.input, styles.disabledInput]}>{courseCode}</Text> 
+            <Text style={[styles.input, styles.disabledInput]}>{courseCode}</Text>
 
-            {/* School as Dropdown */}
             <Text style={styles.label}>School</Text>
-            <RNPickerSelect
-                onValueChange={setSelectedSchool}
-                items={schools.map(school => ({ label: school, value: school }))}
-                style={pickerSelectStyles}
-                placeholder={{ label: "Select a School", value: null }}
-            />
+            <RNPickerSelect onValueChange={setSelectedSchool} items={schools.map(school => ({ label: school, value: school }))} />
 
-            <View style={styles.buttonContainer}>
-                <Button title="Add Course" onPress={handleSubmit} color="#7ac142" />
-            </View>
+            <Button title="Add Course" onPress={handleSubmit} color="#7ac142" />
         </View>
     );
 };
