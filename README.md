@@ -10,7 +10,7 @@ Work with REST APIs to retrieve and manage course data.
 Implement search & filter functionality for enhanced user experience.
 
 ## Prototype Video Demostration
-L13.mp4
+https://github.com/user-attachments/assets/76720011-b778-4069-b9f4-e4c90e1aa12d
 
 ## 🛠️ Tech Stack
 Frontend: React Native (Expo)
