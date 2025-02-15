@@ -1,4 +1,4 @@
-📱 Mobile App Development Team Challenge
+**📱 Mobile App Development Team Challenge**
 🚀 Project Overview
 Welcome to the Mobile App Development Team Challenge! In this project, you will work as a team of three developers to build a simple Contact Management App that performs CRUD operations (Create, Read, Update, Delete) on contacts using a custom API built with Retool API Generator.
 
