@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "course_name": "Diploma in Information Technology",
+        "course_code": "R11",
+        "school": "School of Computing",
+        "aggregate_range": "13 to 26",
+        "entry_requirements": {
+            "English Language": "D7",
+            "Mathematics": "C6",
+            "Relevant Subject": "C6"
+        }
+    },
+    {
+        "id": 2,
+        "course_name": "Diploma in Business",
+        "course_code": "R12",
+        "school": "School of Business",
+        "aggregate_range": "10 to 24",
+        "entry_requirements": {
+            "English Language": "C6",
+            "Mathematics": "C5",
+            "Relevant Subject": "C5"
+        }
+    }
+]
